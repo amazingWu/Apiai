@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	<!-- 添加annotation功能 -->
+	<context:annotation-config />
+	<!-- 自动扫描包 -->
+	<context:component-scan base-package="com.robot.example" />
+	
+	<!-- annotation-driven配置 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<!-- 配置数据库连接信息 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库 -->
+		<property name="url" value="jdbc:mysql://localhost:3306/apidatabase"/>
+		<!-- 数据库用户名和密码 -->
+		<property name="username" value="wuqi" />
+		<property name="password" value="123456" />
+	</bean>
+	
+	<!-- sessionFactory配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 数据库信息为上面已经配置好的dataSource -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描的包 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.robot.example.entity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.show_sql=true
+				hibernate.format_sql=true
+			</value>
+		</property>
+	</bean>
+	
+	
+	<!-- aop配置信息 -->
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.example.server.dao..*.*(..))" id="businessService"/>
+    	<aop:advisor advice-ref="txAdvice" pointcut-ref="businessService"/>
+    </aop:config>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+	        <tx:attributes>
+	            <tx:method name="get*" read-only="true"/>
+	            <tx:method name="add*" propagation="REQUIRED"/>
+	            <tx:method name="list" read-only="true"/>
+	           	<tx:method name="save" propagation="REQUIRED"/>
+	           	<tx:method name="delete*" propagation="REQUIRED"/>
+	           	<tx:method name="update*" propagation="REQUIRED"/>
+	           	<tx:method name="insert" propagation="REQUIRED"/>
+	        </tx:attributes>
+    </tx:advice>
+	<!-- 预先给 HibernateTemplate注入sessionFactory属性值以用来初始化-->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="priceDao" class="com.robot.example.dao.PriceDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="priceService" class="com.robot.example.service.PriceService">
+		<property name="priceDao" ref="priceDao" />
+	</bean>
+	<bean id="productDao" class="com.robot.example.dao.ProductDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="productService" class="com.robot.example.service.ProductService"/>
+</beans>
