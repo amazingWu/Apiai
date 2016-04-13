@@ -1,5 +1,6 @@
 package com.robot.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.robot.example.entity.Medicine_View;
 import com.robot.example.entity.Price;
 import com.robot.example.entity.Product;
 import com.robot.example.service.PriceService;
@@ -70,16 +72,18 @@ public class ApiController {
 		JsonObject result=jsonObj.getAsJsonObject("result");
 		String actionType=result.get("action").getAsString();
 		//根据result结点下的action类型进行不同的处理
-		if(actionType.equals("weatherForecast")){
+		if(actionType.equals("weatherForecast")){//天气服务
 			return getWeather(result);
-		}else if(actionType.equals("productPrice")){
+		}else if(actionType.equals("productPrice")){//产品价格
 			return getPricebyName(result);
-		}else if(actionType.equals("productParameter")){
+		}else if(actionType.equals("productParameter")){//产品属性
 			return getParamsbyName(result);
-		}else if(actionType.equals("productMessage")){
+		}else if(actionType.equals("productMessage")){//产品完整信息
 			return getProductMessagebyName(result);
+		}else if(actionType.equals("productEffect")){//产品作用
+			return getProductEffectbyName(result);
 		}
-		return null;
+		return "";
 	}
 	
 	/**
@@ -101,7 +105,7 @@ public class ApiController {
 	private String getPricebyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("product-name").getAsString();
-		List<Product> lists=productService.getProductbyName(productName);
+		List<Product> lists=productService.getProductByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
@@ -113,7 +117,6 @@ public class ApiController {
 		}
 		return back;
 	}
-	
 	/**
 	 * 获取产品规格参数
 	 * @param result
@@ -122,7 +125,7 @@ public class ApiController {
 	private String getParamsbyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("product-name").getAsString();
-		List<Product> lists=productService.getProductbyName(productName);
+		List<Product> lists=productService.getProductByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
@@ -136,19 +139,18 @@ public class ApiController {
 	}
 	
 	/**
-	 * 获取产品全部信息
+	 * 获取产品全部基本信息
 	 * @param result
 	 * @return
 	 */
 	private String getProductMessagebyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("product-name").getAsString();
-		List<Product> lists=productService.getProductbyName(productName);
+		List<Product> lists=productService.getProductByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
 				back+="产品:"+lists.get(i).getProductName()
-					+"\n类型:"+lists.get(i).getProductType()
 					+"\n规格参数:"+lists.get(i).getProductParameter()
 					+"\n供应商:"+lists.get(i).getProductBrand()
 					+"\n价格:"+lists.get(i).getProductPrice()
@@ -156,7 +158,6 @@ public class ApiController {
 			}
 			else{
 				back+="产品:"+lists.get(i).getProductName()
-						+"\n类型:"+lists.get(i).getProductType()
 						+"\n规格参数:"+lists.get(i).getProductParameter()
 						+"\n供应商:"+lists.get(i).getProductBrand()
 						+"\n价格:"+lists.get(i).getProductPrice();
@@ -164,6 +165,29 @@ public class ApiController {
 		}
 		return back;
 	}
+	/**
+	 * 获取产品功效
+	 * @param result
+	 * @return
+	 */
+	private String getProductEffectbyName(JsonObject result){
+		JsonObject params=result.getAsJsonObject("parameters");
+		String productName=params.get("product-name").getAsString();
+		//List<String> views=productService.getTypeIdList(productName);
+		List<Medicine_View> medicines=productService.getMedicineByName(productName);
+		String back="";
+		for(int i=0;i<medicines.size();i++){
+			if(i<medicines.size()-1){
+				back+=medicines.get(i).getProductName()
+						+":\n功效:"+medicines.get(i).getProductEffect()+"\n";
+			}else{
+				back+=medicines.get(i).getProductName()
+						+":\n功效:"+medicines.get(i).getProductEffect();
+			}
+		}
+		return back;
+	}
+	
 	/**
 	 * 测试
 	 * @param name

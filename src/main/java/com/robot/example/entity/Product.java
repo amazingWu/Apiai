@@ -17,14 +17,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 //用来自动序列化成json
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, 
 getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class Product {
+public class Product{
 
 	private long productId;//产品编号
 	private String productName;//产品型号
 	private double productPrice;//产品价格
 	private String productBrand;//产品品牌
 	private String productParameter;//产品规格
-	private String productType;//产品所属类型
 	
 	@Id
 	@JsonProperty
@@ -64,12 +63,5 @@ public class Product {
 	}
 	public void setProductParameter(String productParameter) {
 		this.productParameter = productParameter;
-	}
-	@JsonProperty
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
 	}
 }

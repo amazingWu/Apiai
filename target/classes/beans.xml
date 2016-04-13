@@ -83,4 +83,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="productService" class="com.robot.example.service.ProductService"/>
+	<bean id="medicineDao" class="com.robot.example.dao.MedicineDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

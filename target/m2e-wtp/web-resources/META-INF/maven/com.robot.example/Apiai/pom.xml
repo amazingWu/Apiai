@@ -169,7 +169,7 @@
 					<phase>package</phase>
 					<goals><goal>run</goal></goals>
 				</execution>
-			</executions>		
+			</executions>
     	</plugin>
     	
     </plugins>
