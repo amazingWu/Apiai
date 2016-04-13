@@ -74,9 +74,6 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- Dao继承HibernateSupportDao,必须使用set注入 -->
-	<bean id="productDao" class="com.robot.example.dao.ProductDao">
-		<property name="hibernateTemplate" ref="hibernateTemplate" />
-	</bean>
 	<bean id="medicineviewDao" class="com.robot.example.dao.MedicineviewDao">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
