@@ -9,23 +9,23 @@ import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
 
-import com.robot.example.entity.Medicine_View;
+import com.robot.example.entity.Medicineview;
 
 @Component
-public class MedicineDao extends HibernateDaoSupport{
+public class MedicineviewDao extends HibernateDaoSupport{
 	
 	/**
 	 * 根据id查找
 	 * @param id
 	 * @return
 	 */
-	public Medicine_View getMedicinebyId(final long id)
+	public Medicineview getMedicinebyId(final long id)
 	{
-		Medicine_View medicine;
-		medicine=(Medicine_View)this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
+		Medicineview medicine;
+		medicine=(Medicineview)this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
 			public Object doInHibernate(Session session) throws HibernateException {
-				String hql="from medicine_view where productId=:productId";
+				String hql="from Medicineview where productId=:productId";
 				Query query=session.createQuery(hql);
 				query.setParameter("productId", id);
 				// TODO Auto-generated method stub		
@@ -43,13 +43,13 @@ public class MedicineDao extends HibernateDaoSupport{
 	 * @param name
 	 * @return
 	 */
-	public List<Medicine_View> getMedicineByName(final String name){
+	public List<Medicineview> getMedicineByName(final String name){
 		@SuppressWarnings({ "unchecked" })
-		List<Medicine_View> result=(List<Medicine_View>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
+		List<Medicineview> result=(List<Medicineview>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
 			public Object doInHibernate(Session session) throws HibernateException {
 				// TODO Auto-generated method stub
-				String hql="from Medicine_View where productName like:productName";
+				String hql="from Medicineview where productName like:productName";
 				Query query=session.createQuery(hql);
 				query.setParameter("productName", "%"+name+"%");
 				return query.list();

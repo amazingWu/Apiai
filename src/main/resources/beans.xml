@@ -73,17 +73,13 @@
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="priceDao" class="com.robot.example.dao.PriceDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="priceService" class="com.robot.example.service.PriceService">
-		<property name="priceDao" ref="priceDao" />
-	</bean>
+	<!-- Dao继承HibernateSupportDao,必须使用set注入 -->
 	<bean id="productDao" class="com.robot.example.dao.ProductDao">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
-	<bean id="productService" class="com.robot.example.service.ProductService"/>
-	<bean id="medicineDao" class="com.robot.example.dao.MedicineDao">
-		<property name="sessionFactory" ref="sessionFactory" />
+	<bean id="medicineviewDao" class="com.robot.example.dao.MedicineviewDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
+	<!-- Service中使用了注解，所以不需要指定都有哪些属性，会自动扫描 -->
+	<bean id="medicineService" class="com.robot.example.service.MedicineService"/>
 </beans>

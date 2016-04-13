@@ -10,13 +10,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, 
 getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class Medicine_View{
+public class Medicineview{
 	private long productId;//产品编号
 	private String productName;//产品型号
 	private double productPrice;//产品价格
 	private String productBrand;//产品品牌
 	private String productParameter;//产品规格
-	
+	private String productType;
+	private String productEffect;
+	private String productDirection;
+	private String productSideEffect;
 	@Id
 	@JsonProperty
 	public long getProductId() {
@@ -56,10 +59,7 @@ public class Medicine_View{
 	public void setProductParameter(String productParameter) {
 		this.productParameter = productParameter;
 	}
-	private String productType;
-	private String productEffect;
-	private String productDirection;
-	private String productSideEffect;
+	
 	@JsonProperty
 	public String getProductType() {
 		return productType;
