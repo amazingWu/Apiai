@@ -6,12 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.google.gson.JsonObject;
-import com.robot.example.dao.MedicineviewDao;
-import com.robot.example.entity.Medicineview;
+import com.robot.example.dao.MedicineDao;
+import com.robot.example.entity.Medicine;
 
 public class MedicineService {
 
-	private MedicineviewDao medicineviewDao;
+	private MedicineDao medicineviewDao;
 
 
 
@@ -57,7 +57,7 @@ public class MedicineService {
 //		return result;
 //	}
 	@Resource
-	public void setMedicineviewDao(MedicineviewDao medicineviewDao) {
+	public void setMedicineviewDao(MedicineDao medicineviewDao) {
 		this.medicineviewDao = medicineviewDao;
 	}
 	/**
@@ -68,7 +68,7 @@ public class MedicineService {
 	public String getPricebyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
-		List<Medicineview> lists=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
@@ -88,7 +88,7 @@ public class MedicineService {
 	public String getParamsbyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
-		List<Medicineview> lists=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
@@ -109,7 +109,7 @@ public class MedicineService {
 	public String getMessagebyName(JsonObject result){
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
-		List<Medicineview> lists=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<lists.size();i++){
 			if(i<lists.size()-1){
@@ -137,7 +137,7 @@ public class MedicineService {
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
 		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicineview> medicines=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<medicines.size();i++){
 			if(i<medicines.size()-1){
@@ -159,7 +159,7 @@ public class MedicineService {
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
 		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicineview> medicines=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<medicines.size();i++){
 			if(i<medicines.size()-1){
@@ -182,7 +182,7 @@ public class MedicineService {
 		JsonObject params=result.getAsJsonObject("parameters");
 		String productName=params.get("medicine-name").getAsString();
 		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicineview> medicines=medicineviewDao.getMedicineByName(productName);
+		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
 		String back="";
 		for(int i=0;i<medicines.size();i++){
 			if(i<medicines.size()-1){

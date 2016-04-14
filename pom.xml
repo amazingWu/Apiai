@@ -20,27 +20,13 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-			<scope>provided</scope>
 		</dependency>
 	<dependency>
 		<groupId>javax.servlet.jsp</groupId>
 		<artifactId>javax.servlet.jsp-api</artifactId>
 		<version>2.2.1</version>
-		<scope>provided</scope>
 	</dependency>
 	
-	<!-- struts2核心包 -->
-	<dependency>
-	    <groupId>org.apache.struts</groupId>
-	    <artifactId>struts2-core</artifactId>
-	    <version>2.3.28</version>
-	    <exclusions>
-	    	<exclusion>
-	    		<artifactId>javassist</artifactId>
-	    		<groupId>javassist</groupId>
-	    	</exclusion>
-	    </exclusions>
-	</dependency>
 	
 	<!-- spring依赖 -->
 	<dependency>  
@@ -64,7 +50,33 @@
 		<version>4.1.1.RELEASE</version>
 	</dependency>
 	
-	<!-- hibernate依赖 -->
+        <!-- spring框架依赖 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+        <!-- 包含了大量注解@Autowired等。 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+        <!-- 包含ContextLoaderListener 监听器 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+         
+        <!--  ApplicationContextInitializer -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+        
+ 	<!-- hibernate依赖 -->  
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-core</artifactId>
@@ -108,7 +120,16 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
-		
+		<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 		<!-- gson依赖 -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
@@ -125,53 +146,21 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.3.4</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
 		</dependency>
+
   </dependencies>
    <properties>
-   <!-- java1.6的环境,sae对jdk版本有要求 -->
-  	<java.version>1.6</java.version>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>
   <build>
     <finalName>Apiai</finalName>
 
 	<!-- 通过右击项目,run as: maven build ,然后输入jetty:run启动jetty部署 -->
-    <plugins>
-    	<plugin>
-    		<groupId>org.mortbay.jetty</groupId>
-    		<!-- jetty7.x和jetty6.x的明显不同在于这里,6.x的名字为maven-jetty-plugin -->
-    		<artifactId>jetty-maven-plugin</artifactId>
-    		<version>7.1.5.v20100705</version>
-    		<configuration>
-    		<!-- 自动热部署,每10秒扫描一下 -->
-			  <scanIntervalSeconds>10</scanIntervalSeconds>
-			  <!-- war生成目录 -->
-			  <webApp>
-			  	<!-- 生成的war名称 -->
-			  	<warName>Apiai</warName>
-			  </webApp>
-			  <connectors>
-			  	<!-- 6.x的为org.mortbay.jetty.SelectChannelConnector -->
-			  	<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                        <!-- 设置默认的端口号 -->
-                        <port>80</port>
-                </connector>
-			  </connectors>
-			</configuration>
-			<!-- 在package命令之后执行jetty的run命令 -->
-			<executions>
-				<execution>
-					<phase>package</phase>
-					<goals><goal>run</goal></goals>
-				</execution>
-			</executions>
-    	</plugin>
-    	
-    </plugins>
+  
   </build>
 </project>

@@ -74,7 +74,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- Dao继承HibernateSupportDao,必须使用set注入 -->
-	<bean id="medicineviewDao" class="com.robot.example.dao.MedicineviewDao">
+	<bean id="medicineDao" class="com.robot.example.dao.MedicineDao">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	<!-- Service中使用了注解，所以不需要指定都有哪些属性，会自动扫描 -->

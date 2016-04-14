@@ -15,7 +15,7 @@ import com.robot.example.service.MedicineService;
 import com.robot.example.service.WeatherService;
 
 @Controller
-@RequestMapping(value = "api")
+@RequestMapping(value = "/api")
 public class ApiController {
 	private WeatherService weatherService=new WeatherService();
 	private MedicineService medicineService;
@@ -24,14 +24,14 @@ public class ApiController {
 		this.medicineService = medicineService;
 	}
 	//produces="application/json; charset=utf-8"用来控制输出的编码格式为utf-8
-	@RequestMapping(value = "weather/{city}",
+	@RequestMapping(value = "/weather/{city}",
 			produces="application/json; charset=utf-8")
 	public @ResponseBody String weather(@PathVariable String city){
 		String result=weatherService.getWeather(city);
 		return result;
 	}
 	//api.ai网站请求的入口
-	@RequestMapping(value="webhook",
+	@RequestMapping(value="/webhook",
 			method = RequestMethod.POST,
 			produces="application/json; charset=utf-8")
 	public @ResponseBody String webhook(@RequestBody String body){

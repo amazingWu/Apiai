@@ -1,14 +1,14 @@
 package com.robot.example.helper;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,10 +19,10 @@ import org.hibernate.mapping.KeyValue;
 public class httphelper {
 	
 	/**
-	 * 模拟发�?�get请求
-	 * @param url 基地�?,基地�?后面不需要跟 "?".
+	 * 模拟发�?�get请求
+	 * @param url 基地�?,基地�?后面不需要跟 "?".
 	 * @param param 参数列表,格式应该为kay1=value1&key2=value2
-	 * @return 返回字符�?
+	 * @return 返回字符�?
 	 */
 	public static String sendGet(String url,String param){
 		
@@ -38,8 +38,11 @@ public class httphelper {
         try {
 			HttpResponse httpresponse = httpclient.execute(httpgets);
 			HttpEntity entity=httpresponse.getEntity();
-			
-			result = IOUtils.toString(entity.getContent(), "utf-8"); 
+			BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()));   
+		    String line = "";  
+		    while ((line = reader.readLine()) != null) {  
+		    	result+=line;
+		    }  
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,10 +52,10 @@ public class httphelper {
         return result;
 	}
 	/**
-	 * 模拟发�?�post请求
-	 * @param url 基地�?.
+	 * 模拟发�?�post请求
+	 * @param url 基地�?.
 	 * @param param 参数列表,格式应该为kay1=value1&key2=value2
-	 * @return 返回字符�?
+	 * @return 返回字符�?
 	 */
 	/*
 	public static String sendPost(String url,HashMap<String, String> hash){
