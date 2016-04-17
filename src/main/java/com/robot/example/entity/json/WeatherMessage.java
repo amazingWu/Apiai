@@ -1,7 +1,7 @@
-package com.robot.example.entity;
+package com.robot.example.entity.json;
 
 /**
- * 百度天气服务返回的json对应的类
+ * 锟劫讹拷锟斤拷锟斤拷锟斤拷锟今返回碉拷json锟斤拷应锟斤拷锟斤拷
  * @author wq
  *
  */

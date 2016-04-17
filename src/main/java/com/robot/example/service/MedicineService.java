@@ -5,13 +5,19 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.robot.example.dao.MedicineDao;
 import com.robot.example.entity.Medicine;
+import com.robot.example.entity.json.RobotBackJson;
+import com.robot.example.entity.json.TypeCollection;
 
 public class MedicineService {
 
-	private MedicineDao medicineviewDao;
+	private String NEWS_SOURCE="小智药店";
+	private MedicineDao medicineDao;
 
 
 
@@ -56,29 +62,55 @@ public class MedicineService {
 //		}
 //		return result;
 //	}
-	@Resource
-	public void setMedicineviewDao(MedicineDao medicineviewDao) {
-		this.medicineviewDao = medicineviewDao;
+	@Resource(name="medicineDao")
+	public void setMedicineviewDao(MedicineDao medicineDao) {
+		this.medicineDao = medicineDao;
 	}
+	/**
+	 * 数据库中查询medicine
+	 * @param result
+	 * @return
+	 */
+	private List<Medicine> medicineSelect(JsonObject result){
+		JsonObject params=result.getAsJsonObject("parameters");
+		String productName=params.get("medicine-name").getAsString();
+		//查找数据库
+		List<Medicine> lists=medicineDao.getMedicineByName(productName);
+		return lists;
+	}
+	
 	/**
 	 * 获取药品价格
 	 * @param result
 	 * @return
 	 */
 	public String getPricebyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
-		String back="";
-		for(int i=0;i<lists.size();i++){
-			if(i<lists.size()-1){
-				back+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元\n";
+		//初始化返回消息的pojo类
+		RobotBackJson backPojo=new RobotBackJson();
+		//查找数据库
+		List<Medicine> lists=medicineSelect(result);
+		String content="";
+		if(lists.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<lists.size();i++){
+				if(i<lists.size()-1){
+					content+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元<br/>";
+				}
+				else{
+					content+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元<br/>";
+				}
 			}
-			else{
-				back+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元";
-			}
+		}else{
+			backPojo.status="false";
 		}
-		return back;
+		//添加pojo中的信息
+		backPojo.content=content;
+		backPojo.source=NEWS_SOURCE;
+		backPojo.type=TypeCollection.Type_Back_String;
+		//序列化成json返回
+		Gson gson=new Gson();
+		return gson.toJson(backPojo);
+		
 	}
 	/**
 	 * 获取产品规格参数
@@ -86,19 +118,31 @@ public class MedicineService {
 	 * @return 规格参数字符串
 	 */
 	public String getParamsbyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
+		//初始化返回消息的pojo类
+		RobotBackJson backPojo=new RobotBackJson();
+		//查询数据库
+		List<Medicine> lists=medicineSelect(result);
 		String back="";
-		for(int i=0;i<lists.size();i++){
-			if(i<lists.size()-1){
-				back+=lists.get(i).getProductName()+":\n"+lists.get(i).getProductParameter()+"\n";
+		if(lists.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<lists.size();i++){
+				if(i<lists.size()-1){
+					back+=lists.get(i).getProductName()+":<br/>"+lists.get(i).getProductParameter()+"br/";
+				}
+				else{
+					back+=lists.get(i).getProductName()+":<br/>"+lists.get(i).getProductParameter();
+				}
 			}
-			else{
-				back+=lists.get(i).getProductName()+":\n"+lists.get(i).getProductParameter();
-			}
+		}else{
+			backPojo.status="false";
 		}
-		return back;
+		//补全信息
+		backPojo.content=back;
+		backPojo.source=NEWS_SOURCE;
+		backPojo.type=TypeCollection.Type_Back_String;
+		//反序列化成json返回
+		Gson gson=new Gson();	
+		return gson.toJson(backPojo);
 	}
 	
 	/**
@@ -107,26 +151,43 @@ public class MedicineService {
 	 * @return
 	 */
 	public String getMessagebyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		List<Medicine> lists=medicineviewDao.getMedicineByName(productName);
+		//初始化返回消息的pojo类
+		RobotBackJson backPojo=new RobotBackJson();
+		//查询数据库
+		List<Medicine> lists=medicineSelect(result);
 		String back="";
-		for(int i=0;i<lists.size();i++){
-			if(i<lists.size()-1){
-				back+="产品:"+lists.get(i).getProductName()
-					+"\n规格参数:"+lists.get(i).getProductParameter()
-					+"\n供应商:"+lists.get(i).getProductBrand()
-					+"\n价格:"+lists.get(i).getProductPrice()
-					+"\n";
+		if(lists.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<lists.size();i++){
+				if(i<lists.size()-1){
+					back+="产品:"+lists.get(i).getProductName()
+						+"<br/>规格参数:"+lists.get(i).getProductParameter()
+						+"<br/>供应商:"+lists.get(i).getProductBrand()
+						+"<br/>价格:"+lists.get(i).getProductPrice()
+						+"<br/>功效:"+lists.get(i).getProductEffect()
+						+"<br/>副作用:"+lists.get(i).getProductSideEffect()
+						+"<br/>使用说明:"+lists.get(i).getProductDirection()
+						+"<br/>";
+				}
+				else{
+					back+="产品:"+lists.get(i).getProductName()
+							+"<br/>规格参数:"+lists.get(i).getProductParameter()
+							+"<br/>供应商:"+lists.get(i).getProductBrand()
+							+"<br/>价格:"+lists.get(i).getProductPrice()
+							+"<br/>功效:"+lists.get(i).getProductEffect()
+							+"<br/>副作用:"+lists.get(i).getProductSideEffect()
+							+"<br/>使用说明:"+lists.get(i).getProductDirection();
+				}
 			}
-			else{
-				back+="产品:"+lists.get(i).getProductName()
-						+"\n规格参数:"+lists.get(i).getProductParameter()
-						+"\n供应商:"+lists.get(i).getProductBrand()
-						+"\n价格:"+lists.get(i).getProductPrice();
-			}
+		}else{
+			backPojo.status="fasle";
 		}
-		return back;
+		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.source=NEWS_SOURCE;
+		backPojo.content=back;
+		//反序列化成json返回
+		Gson gson=new Gson();	
+		return gson.toJson(backPojo);
 	}
 	/**
 	 * 获取药品功效
@@ -134,21 +195,30 @@ public class MedicineService {
 	 * @return
 	 */
 	public String getEffectbyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
+		//构建pojo类
+		RobotBackJson backPojo=new RobotBackJson();
+		List<Medicine> medicines=medicineSelect(result);
 		String back="";
-		for(int i=0;i<medicines.size();i++){
-			if(i<medicines.size()-1){
-				back+=medicines.get(i).getProductName()
-						+":\n功效:"+medicines.get(i).getProductEffect()+"\n";
-			}else{
-				back+=medicines.get(i).getProductName()
-						+":\n功效:"+medicines.get(i).getProductEffect();
+		if(medicines.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<medicines.size();i++){
+				if(i<medicines.size()-1){
+					back+=medicines.get(i).getProductName()
+							+":<br/>功效:"+medicines.get(i).getProductEffect()+"<br/>";
+				}else{
+					back+=medicines.get(i).getProductName()
+							+":<br/>功效:"+medicines.get(i).getProductEffect();
+				}
 			}
+		}else{
+			backPojo.status="false";
 		}
-		return back;
+		backPojo.source=NEWS_SOURCE;
+		backPojo.content=back;
+		backPojo.type=TypeCollection.Type_Back_String;
+		//反序列化成json返回
+		Gson gson=new Gson();	
+		return gson.toJson(backPojo);
 	}
 	/**
 	 * 获取药品副作用
@@ -156,21 +226,29 @@ public class MedicineService {
 	 * @return
 	 */
 	public String getSideEffectbyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
+		RobotBackJson backPojo=new RobotBackJson();
+		List<Medicine> medicines=medicineSelect(result);
 		String back="";
-		for(int i=0;i<medicines.size();i++){
-			if(i<medicines.size()-1){
-				back+=medicines.get(i).getProductName()
-						+":\n副作用:"+medicines.get(i).getProductSideEffect();
-			}else{
-				back+=medicines.get(i).getProductName()
-						+":\n副作用:"+medicines.get(i).getProductSideEffect();
+		if(medicines.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<medicines.size();i++){
+				if(i<medicines.size()-1){
+					back+=medicines.get(i).getProductName()
+							+":<br/>副作用:"+medicines.get(i).getProductSideEffect();
+				}else{
+					back+=medicines.get(i).getProductName()
+							+":<br/>副作用:"+medicines.get(i).getProductSideEffect();
+				}
 			}
+		}else{
+			backPojo.status="false";
 		}
-		return back;
+		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.content=back;
+		backPojo.source=NEWS_SOURCE;
+		//反序列化成json返回
+		Gson gson=new Gson();	
+		return gson.toJson(backPojo);
 	}
 	
 	/**
@@ -179,20 +257,29 @@ public class MedicineService {
 	 * @return
 	 */
 	public String getDirectionbyName(JsonObject result){
-		JsonObject params=result.getAsJsonObject("parameters");
-		String productName=params.get("medicine-name").getAsString();
-		//List<String> views=productService.getTypeIdList(productName);
-		List<Medicine> medicines=medicineviewDao.getMedicineByName(productName);
+		RobotBackJson backPojo=new RobotBackJson();
+		List<Medicine> medicines=medicineSelect(result);
 		String back="";
-		for(int i=0;i<medicines.size();i++){
-			if(i<medicines.size()-1){
-				back+=medicines.get(i).getProductName()
-						+":用法\n:"+medicines.get(i).getProductDirection();
-			}else{
-				back+=medicines.get(i).getProductName()
-						+":\n用法:"+medicines.get(i).getProductDirection();
+		if(medicines.size()>0){
+			backPojo.status="success";
+			for(int i=0;i<medicines.size();i++){
+				if(i<medicines.size()-1){
+					back+=medicines.get(i).getProductName()
+							+":<br/>用法:"+medicines.get(i).getProductDirection();
+				}else{
+					back+=medicines.get(i).getProductName()
+							+":<br/>用法:"+medicines.get(i).getProductDirection();
+				}
 			}
 		}
-		return back;
+		else{
+			backPojo.status="false";
+		}
+		backPojo.source=NEWS_SOURCE;
+		backPojo.content=back;
+		backPojo.type=TypeCollection.Type_Back_String;
+		//反序列化成json返回
+		Gson gson=new Gson();	
+		return gson.toJson(backPojo);
 	}
 }

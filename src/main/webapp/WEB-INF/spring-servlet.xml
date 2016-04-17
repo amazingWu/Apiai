@@ -11,14 +11,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 	
-	<!-- 为controller配置annotation-driven -->
-	<mvc:annotation-driven>
+	<!-- controller中输出的编码为UTF-8 -->
+	<!-- <mvc:annotation-driven>
 	  <mvc:message-converters register-defaults="true">
-	    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-	      <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+	    <bean class="com.robot.example.helper.UTF8StringHttpMessageConverter">
 	    </bean>
 	  </mvc:message-converters>
-	</mvc:annotation-driven>
+	</mvc:annotation-driven> -->
+	 
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.robot.example.controller" />
 

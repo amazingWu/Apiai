@@ -24,16 +24,15 @@ public class ApiController {
 		this.medicineService = medicineService;
 	}
 	//produces="application/json; charset=utf-8"用来控制输出的编码格式为utf-8
-	@RequestMapping(value = "/weather/{city}",
-			produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/weather/{city}")
 	public @ResponseBody String weather(@PathVariable String city){
 		String result=weatherService.getWeather(city);
+		
 		return result;
 	}
 	//api.ai网站请求的入口
 	@RequestMapping(value="/webhook",
-			method = RequestMethod.POST,
-			produces="application/json; charset=utf-8")
+			method = RequestMethod.POST,consumes="application/json",produces = {"application/json;charset=UTF-8"})
 	public @ResponseBody String webhook(@RequestBody String body){
 		
 		//json动态化处理工具

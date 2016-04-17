@@ -1,4 +1,4 @@
-package com.robot.example.entity;
+package com.robot.example.entity.json;
 
 public class Weather_data {
 	private String date;

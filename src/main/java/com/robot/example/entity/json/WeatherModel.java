@@ -1,6 +1,6 @@
-package com.robot.example.entity;
+package com.robot.example.entity.json;
 /**
- * 百度天气服务辅助类
+ * 锟劫讹拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
  * @author wq
  *
  */

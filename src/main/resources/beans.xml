@@ -12,31 +12,27 @@
 	<context:annotation-config />
 	<!-- 自动扫描包 -->
 	<context:component-scan base-package="com.robot.example" />
-	
-	<!-- annotation-driven配置 -->
-	<tx:annotation-driven transaction-manager="txManager"/>
-	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-    	<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	
 	<!-- 配置数据库连接信息 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
-		<!-- 驱动 -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<!-- 数据库 -->
 		<property name="url" value="jdbc:mysql://localhost:3306/apidatabase"/>
-		<!-- 数据库用户名和密码 -->
 		<property name="username" value="wuqi" />
 		<property name="password" value="123456" />
+	</bean> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://sqld.duapp.com:4050/OnKfamyxjVZcHepKpmqV"/>
+		<property name="username" value="ea694b3860ee41cdb599f742c0291fbf" />
+		<property name="password" value="7aa32f406a6f444a896622d990d193fd" />
 	</bean>
-	
 	<!-- sessionFactory配置 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<!-- 数据库信息为上面已经配置好的dataSource -->
 		<property name="dataSource" ref="dataSource" />
+		
 		<!-- 自动扫描的包 -->
 		<property name="packagesToScan">
 			<list>
@@ -52,12 +48,6 @@
 		</property>
 	</bean>
 	
-	
-	<!-- aop配置信息 -->
-	<aop:config>
-		<aop:pointcut expression="execution(public * com.example.server.dao..*.*(..))" id="businessService"/>
-    	<aop:advisor advice-ref="txAdvice" pointcut-ref="businessService"/>
-    </aop:config>
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 	        <tx:attributes>
 	            <tx:method name="get*" read-only="true"/>
@@ -69,6 +59,16 @@
 	           	<tx:method name="insert" propagation="REQUIRED"/>
 	        </tx:attributes>
     </tx:advice>
+    <!-- 配置事务拦截器拦截哪些类的哪些方法 -->
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.robot.example.service.*.*(..))" id="businessService"/>
+    	<aop:advisor advice-ref="txAdvice" pointcut-ref="businessService"/>
+    </aop:config>
+    <!-- 配置 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	<!-- 预先给 HibernateTemplate注入sessionFactory属性值以用来初始化-->
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />

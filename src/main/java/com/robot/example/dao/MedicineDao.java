@@ -34,7 +34,9 @@ public class MedicineDao extends HibernateDaoSupport{
 				else
 					return null;
 			}
+			
 		});
+		
 		return medicine;
 	}
 	
