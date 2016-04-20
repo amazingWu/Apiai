@@ -11,13 +11,27 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.robot.example.entity.json.ApiJson;
 
+/**
+ * 前台类，在该类中主要进行了与api.ai网站进行交互的封装
+ * @author wuqi-pc
+ *
+ */
 public class ApiHelper {
 	//接口地址
     private final String API_URL = "https://api.api.ai/v1/query";
+    //api.ai网站的agent的token值
     private final String API_TOKEN_CLIENT = "5c0a39075f6a456cada50c335eeca729";
-    //要提交的postbody
-    private String postbody;
+    //下面这两个属性与该类无关，只是存储在这里方便没有查到消息之后，调用图灵机器人
+    //用来存储用户唯一id
+    private String userid;
+    //用户发送的原内容
+    private String content;
 
+    public ApiHelper(String content,String userid){
+    	//存储用户唯一id，方便在该类中调用TulingHelper
+    	this.userid=userid;
+    	this.content=content;
+    }
     /**
      * 返回post请求结果
      * @param postbody
@@ -25,6 +39,7 @@ public class ApiHelper {
      */
     private String GetApiHttp(String postbody)
     {
+    	this.userid=userid;
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         list.add(new BasicNameValuePair("Authorization", "Bearer " + API_TOKEN_CLIENT));
         String message = HttpHelper.SendPost(API_URL, postbody, list);
@@ -80,8 +95,13 @@ public class ApiHelper {
             case 200:
                 //如果匹配到action就向自己的服务器请求
                try{
-            	   if (jsonObj.getAsJsonObject("result").get("action").getAsString()==""){
-            		   return "尊敬的用户你好，您的问题暂时无法回答";
+            	   if(jsonObj.getAsJsonObject("result").get("action").getAsString().equals("")){
+            		  // return "尊敬的用户你好，您的问题暂时无法回答!";
+            		   //调用图灵机器人
+            		   TulingHelper tulingHelper=new TulingHelper(content, userid);
+            		   String s=tulingHelper.GetMessage();
+            		   System.out.println("tuling:"+s);
+            		   return s;
                    }
                    else
                    {
@@ -94,11 +114,17 @@ public class ApiHelper {
                            return robotback;
                        }
                    }
-               }catch(Exception ee){
-            	   return "尊敬的用户你好，您的问题暂时无法回答";
+               }catch(Exception ee){//如果捕捉到异常，是jsonObj.getAsJsonObject("result").get("action")出现异常
+            	 //调用图灵机器人
+        		   TulingHelper tulingHelper=new TulingHelper(content, userid);
+        		   String s=tulingHelper.GetMessage();
+        		   System.out.println("tuling:"+s);
+        		   return s;
+        		   //return "尊敬的用户你好，您的问题暂时无法回答..";
                }
             default:
                 return status.get("errorDetails").getAsString();
         }
     }
+
 }

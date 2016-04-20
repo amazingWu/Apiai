@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+//entity表示与数据库中的表或视图对应，hibernate将会根据类名查找数据库
 @Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, 
 getterVisibility = JsonAutoDetect.Visibility.NONE)
@@ -16,10 +17,11 @@ public class Medicine{
 	private double productPrice;//产品价格
 	private String productBrand;//产品品牌
 	private String productParameter;//产品规格
-	private String productType;
-	private String productEffect;
-	private String productDirection;
-	private String productSideEffect;
+	private String productType;//产品类型
+	private String productEffect;//产品作用
+	private String productDirection;//使用说明
+	private String productSideEffect;//副作用
+	//id表示在数据库中是主键
 	@Id
 	@JsonProperty
 	public long getProductId() {

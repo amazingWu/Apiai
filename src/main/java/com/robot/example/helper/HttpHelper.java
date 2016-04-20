@@ -20,13 +20,18 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.hibernate.mapping.KeyValue;
 
+/**
+ * 前台类，模拟请求
+ * @author wuqi-pc
+ *
+ */
 public class HttpHelper {
 	
 	/**
-	 * 模拟发�?�get请求
-	 * @param url 基地�?,基地�?后面不需要跟 "?".
+	 * 模拟发起get请求
+	 * @param url 基地址,基地址后面不需要跟 "?".
 	 * @param param 参数列表,格式应该为kay1=value1&key2=value2
-	 * @return 返回字符�?
+	 * @return 返回字符串
 	 */
 	public static String SendGet(String url,String param){
 		
@@ -55,18 +60,13 @@ public class HttpHelper {
 		}
         return result;
 	}
-	/**
-	 * 模拟发�?�post请求
-	 * @param url 基地�?.
-	 * @param param 参数列表,格式应该为kay1=value1&key2=value2
-	 * @return 返回字符�?
-	 */
+
 	
 	/**
 	 * 模拟post请求
 	 * @param url 基地址
 	 * @param postBody 要发送的字符串信息，可以是json字符串
-	 * @param headers 头信息
+	 * @param headers 头信息列表
 	 * @return
 	 */
 	public static String SendPost(String url,String postbody,List<NameValuePair> headers){

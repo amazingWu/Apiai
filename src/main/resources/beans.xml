@@ -13,20 +13,21 @@
 	<!-- 自动扫描包 -->
 	<context:component-scan base-package="com.robot.example" />
 	<!-- 配置数据库连接信息 -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/apidatabase"/>
 		<property name="username" value="wuqi" />
 		<property name="password" value="123456" />
-	</bean> -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	</bean>
+	
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://sqld.duapp.com:4050/OnKfamyxjVZcHepKpmqV"/>
 		<property name="username" value="ea694b3860ee41cdb599f742c0291fbf" />
 		<property name="password" value="7aa32f406a6f444a896622d990d193fd" />
-	</bean>
+	</bean> -->
 	<!-- sessionFactory配置 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

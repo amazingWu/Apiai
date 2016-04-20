@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/chatstyle.css" type="text/css"> 
     <meta name="viewport" content="width=device-width,initian-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <script type="text/javascript">
-/*         $(document).ready(function () {
-            $("#sent_btn").click(function () {
-                var message = $("#sentinput").val();
-                ajaxRequest(message);
-            });
-        });*/
         function myfunction(){
                 var message = document.getElementById("sentinput").value;
                 ajaxRequest(message);
@@ -54,13 +48,14 @@
                 document.getElementById("chat_ul").appendChild(li);
                 //滚动窗口
                 scroll_bottom();
+
             }
         }
         //javascript ajax回调函数
         //将返回信息包裹成如下节点，并添加到chat_url节点中
         //<li role="you">内容</li>
         function ajaxCallBack() {
-        	document.getElementById("sentinput").value="";
+            document.getElementById("sentinput").value="";
         	//alert("fanhui :");
             if (xmlHttpRequest.readyState == 4) {
                 //创建li节点
@@ -128,4 +123,5 @@
     </div>
     <div class="msg_end" id="msg_end"></div>
     </body>
+
 </html>

@@ -25,11 +25,14 @@ public class MedicineDao extends HibernateDaoSupport{
 		medicine=(Medicine)this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
 			public Object doInHibernate(Session session) throws HibernateException {
+				//构造hql语句
 				String hql="from Medicine where productId=:productId";
 				Query query=session.createQuery(hql);
+				//设置参数值
 				query.setParameter("productId", id);
 				// TODO Auto-generated method stub		
 				if(query.list().size()>0)
+					//执行
 					return query.list().get(0);
 				else
 					return null;

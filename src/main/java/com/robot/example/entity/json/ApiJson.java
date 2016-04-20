@@ -2,6 +2,11 @@ package com.robot.example.entity.json;
 
 import java.util.List;
 
+/**
+ * 发送给api的json串对应的序列化的类，方便json字符串的构造
+ * @author wuqi-pc
+ *
+ */
 public class ApiJson
 {
     //The natural language text to be processed.The request can have multiple query parameters.

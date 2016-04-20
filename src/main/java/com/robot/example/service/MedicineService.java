@@ -62,10 +62,12 @@ public class MedicineService {
 //		}
 //		return result;
 //	}
+	//自动注入属性，该属性已经在spring的配置文件beans.xml中配置
 	@Resource(name="medicineDao")
 	public void setMedicineviewDao(MedicineDao medicineDao) {
 		this.medicineDao = medicineDao;
 	}
+	
 	/**
 	 * 数据库中查询medicine
 	 * @param result
@@ -80,7 +82,7 @@ public class MedicineService {
 	}
 	
 	/**
-	 * 获取药品价格
+	 * 获取药品价格byName
 	 * @param result
 	 * @return
 	 */
@@ -92,12 +94,13 @@ public class MedicineService {
 		String content="";
 		if(lists.size()>0){
 			backPojo.status="success";
+			//消息封装成html形式
 			for(int i=0;i<lists.size();i++){
 				if(i<lists.size()-1){
 					content+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元<br/>";
 				}
 				else{
-					content+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元<br/>";
+					content+=lists.get(i).getProductName()+":"+lists.get(i).getProductPrice()+"元";
 				}
 			}
 		}else{
@@ -125,6 +128,7 @@ public class MedicineService {
 		String back="";
 		if(lists.size()>0){
 			backPojo.status="success";
+			//消息封装成html形式
 			for(int i=0;i<lists.size();i++){
 				if(i<lists.size()-1){
 					back+=lists.get(i).getProductName()+":<br/>"+lists.get(i).getProductParameter()+"br/";
@@ -158,6 +162,7 @@ public class MedicineService {
 		String back="";
 		if(lists.size()>0){
 			backPojo.status="success";
+			//消息封装成html形式
 			for(int i=0;i<lists.size();i++){
 				if(i<lists.size()-1){
 					back+="产品:"+lists.get(i).getProductName()
