@@ -12,8 +12,8 @@ import com.robot.example.entity.json.TypeCollection;
 public class RobotHelper
 {
 	//交互的基地址
-    //private String ROBOT_URL = "http://apiaiservice.duapp.com/api/webhook";
-	private String ROBOT_URL = "http://localhost:8080/Apiai/api/webhook";
+    private String ROBOT_URL = "http://apiaiservice.duapp.com/api/webhook";
+	//private String ROBOT_URL = "http://localhost:8080/Apiai/api/webhook";
     /**
      * 返回post请求的结果
      * @param postBody json字符串，参数一般为从api.ai返回的json，不需要做任何的改变

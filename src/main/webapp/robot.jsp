@@ -8,9 +8,17 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/chatstyle.css" type="text/css"> 
     <meta name="viewport" content="width=device-width,initian-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <script type="text/javascript">
+    	function keydown(){
+    		if (event.keyCode == 13)
+    		  {
+    		    myfunction();
+    		  }
+    	}
         function myfunction(){
                 var message = document.getElementById("sentinput").value;
                 ajaxRequest(message);
+                //重置输入框
+                document.getElementById("sentinput").value="";
         };
     	//javascript ajax
         var xmlHttpRequest = null;
@@ -55,7 +63,7 @@
         //将返回信息包裹成如下节点，并添加到chat_url节点中
         //<li role="you">内容</li>
         function ajaxCallBack() {
-            document.getElementById("sentinput").value="";
+            
         	//alert("fanhui :");
             if (xmlHttpRequest.readyState == 4) {
                 //创建li节点
@@ -123,8 +131,7 @@
     </div>
     <div class="msg_end" id="msg_end"></div>
     <div id="sent_div">
-       
-         <input type="text" id="sentinput" name="sentinput" class="sent_input" />
+         <input type="text" id="sentinput" name="sentinput" class="sent_input" onkeydown="keydown()"/>
          <input type="submit" id="sent_btn" class="sent_btn" value="发送" onclick="myfunction()"/>
     </div>
     </body>

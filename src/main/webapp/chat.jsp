@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/chatstyle.css" type="text/css"> 
     <meta name="viewport" content="width=device-width,initian-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <script type="text/javascript">
-        function myfunction(){
-                var message = document.getElementById("sentinput").value;
-                ajaxRequest(message);
-        };
     	//javascript ajax
         var xmlHttpRequest = null;
         //js中的变量名应避免使用和html元素相同
@@ -55,7 +51,7 @@
         //将返回信息包裹成如下节点，并添加到chat_url节点中
         //<li role="you">内容</li>
         function ajaxCallBack() {
-            document.getElementById("sentinput").value="";
+            
         	//alert("fanhui :");
             if (xmlHttpRequest.readyState == 4) {
                 //创建li节点
