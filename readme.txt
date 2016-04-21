@@ -1,0 +1,10 @@
+系统中包含了robot的前台和自定义服务器。
+关于包：
+com.robot.example.controller是前台控制器，并抛出了服务接口
+com.robot.example.dao是数据库访问包
+com.robot.example.entity是数据库映射实体包
+com.robot.example.entity.json是与服务器交互传递的json信息的pojo类
+com.robot.example.entity.model是robot机器人的controller层和view层信息交互用到的类
+com.robot.example.entity.utility中预定义了一些值的集合，方便一些属性的赋值
+com.robot.example.helper中封装了与各服务的api信息的交互及数据返回信息的处理
+com.robot.example.service是ssh框架中的业务逻辑层，用于业务逻辑处理

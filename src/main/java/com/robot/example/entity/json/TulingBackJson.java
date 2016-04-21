@@ -32,6 +32,7 @@ public class TulingBackJson
     public class TextMessage extends TulingBackJson
     {
     }
+    
     /**
      * 新闻集合类
      * @author wuqi-pc

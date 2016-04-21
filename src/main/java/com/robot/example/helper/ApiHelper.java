@@ -9,7 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.robot.example.entity.json.ApiJson;
+import com.robot.example.entity.json.ApiSentJson;
 
 /**
  * 前台类，在该类中主要进行了与api.ai网站进行交互的封装

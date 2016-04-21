@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.robot.example.dao.MedicineDao;
 import com.robot.example.entity.Medicine;
 import com.robot.example.entity.json.RobotBackJson;
-import com.robot.example.entity.json.TypeCollection;
+import com.robot.example.entity.utility.TypeUtility;
 
 public class MedicineService {
 
@@ -109,7 +109,7 @@ public class MedicineService {
 		//添加pojo中的信息
 		backPojo.content=content;
 		backPojo.source=NEWS_SOURCE;
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		//序列化成json返回
 		Gson gson=new Gson();
 		return gson.toJson(backPojo);
@@ -143,7 +143,7 @@ public class MedicineService {
 		//补全信息
 		backPojo.content=back;
 		backPojo.source=NEWS_SOURCE;
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		//反序列化成json返回
 		Gson gson=new Gson();	
 		return gson.toJson(backPojo);
@@ -187,7 +187,7 @@ public class MedicineService {
 		}else{
 			backPojo.status="fasle";
 		}
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		backPojo.source=NEWS_SOURCE;
 		backPojo.content=back;
 		//反序列化成json返回
@@ -220,7 +220,7 @@ public class MedicineService {
 		}
 		backPojo.source=NEWS_SOURCE;
 		backPojo.content=back;
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		//反序列化成json返回
 		Gson gson=new Gson();	
 		return gson.toJson(backPojo);
@@ -248,7 +248,7 @@ public class MedicineService {
 		}else{
 			backPojo.status="false";
 		}
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		backPojo.content=back;
 		backPojo.source=NEWS_SOURCE;
 		//反序列化成json返回
@@ -282,7 +282,7 @@ public class MedicineService {
 		}
 		backPojo.source=NEWS_SOURCE;
 		backPojo.content=back;
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		//反序列化成json返回
 		Gson gson=new Gson();	
 		return gson.toJson(backPojo);

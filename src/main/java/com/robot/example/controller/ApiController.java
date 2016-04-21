@@ -27,9 +27,10 @@ public class ApiController {
 	@RequestMapping(value = "/weather/{city}")
 	public @ResponseBody String weather(@PathVariable String city){
 		String result=weatherService.getWeather(city);
-		
 		return result;
 	}
+	
+	
 	//api.ai网站请求的入口
 	@RequestMapping(value="/webhook",
 			method = RequestMethod.POST,consumes="application/json",produces = {"application/json;charset=UTF-8"})

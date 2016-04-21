@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.robot.example.entity.json.RobotBackJson;
-import com.robot.example.entity.json.TypeCollection;
 import com.robot.example.entity.json.WeatherMessage;
-import com.robot.example.entity.json.WeatherModel;
-import com.robot.example.entity.json.Weather_data;
+import com.robot.example.entity.json.WeatherMessage.WeatherModel;
+import com.robot.example.entity.json.WeatherMessage.Weather_data;
+import com.robot.example.entity.utility.TypeUtility;
 import com.robot.example.helper.HttpHelper;
 
 @Component
@@ -53,7 +53,7 @@ public class WeatherService {
 			//设置内容为空
 			content="";
 		}
-		backPojo.type=TypeCollection.Type_Back_String;
+		backPojo.type=TypeUtility.Type_Back_String;
 		System.out.println(gson.toJson(backPojo));
 		return gson.toJson(backPojo);
 	}

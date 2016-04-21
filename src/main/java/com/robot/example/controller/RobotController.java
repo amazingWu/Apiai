@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.robot.example.entity.json.ApiJson;
+import com.robot.example.entity.json.ApiSentJson;
 import com.robot.example.entity.model.ChatViewModel;
 import com.robot.example.helper.ApiHelper;
 
@@ -60,7 +60,7 @@ public class RobotController {
 		       if(body!=null||body.trim()!=""){
 		        	 body=body.trim();
 		        	//构造要提交的请求的参数
-		             ApiJson apijson = new ApiJson();
+		             ApiSentJson apijson = new ApiSentJson();
 		             List<String> list=new ArrayList<String>();
 		             list.add(body);
 		             //给将要进行反序列化成json字符串的对象赋值

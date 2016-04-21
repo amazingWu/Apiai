@@ -68,11 +68,11 @@ public class TulingHelper
                 <div class="news">
 			        <img src="news.jpg"/>
 			        <section>
-				        <p>大苏打撒大飒飒撒撒旦飒飒阿斯达克拉都拉多久啊了巨大倒萨大大阿瓦蒂</p>
+				        <p>新闻类消息</p>
 				        <p>网易新闻</p>
 			        </section>
 			        <section>
-				        <p>大苏打撒大飒飒撒撒旦飒飒阿斯达克拉都拉多久啊了巨大倒萨大大阿瓦蒂</p>
+				        <p>新闻类消息</p>
 				        <p>网易新闻</p>
 			        </section>
 		        </div>
@@ -93,12 +93,13 @@ public class TulingHelper
 			        <img src="http://www.sinaimg.cn/dy/slidenews/1_img/2016_04/2841_658254_844711.jpg"/>
 			        <section>
 				        <img src="http://www.sinaimg.cn/dy/slidenews/1_img/2016_04/2841_658254_844711.jpg"/>
-				        <p>大苏打撒大飒飒</p>
-				        <p>大苏打撒大飒飒撒撒旦飒飒阿斯达克拉都拉多久啊了巨大倒萨大大阿瓦蒂</p>
+				        <p>菜谱类消息标题</p>
+				        <p>菜谱类消息内容</p>
 			        </section>
 			        <section>
 				        <img src="http://www.sinaimg.cn/dy/slidenews/1_img/2016_04/2841_658254_844711.jpg"/>
-				        <p>大苏打撒大飒飒撒撒旦飒飒阿斯达克拉都拉多久啊了巨大倒萨大大阿瓦蒂</p>
+				        <p>菜谱类消息标题</p>
+				        <p>菜谱类消息内容</p>
 			        </section>
 		        </div>
                 */

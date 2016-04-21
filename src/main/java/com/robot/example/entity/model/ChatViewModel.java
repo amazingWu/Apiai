@@ -2,7 +2,7 @@ package com.robot.example.entity.model;
 
 
 /**
- * 前台辅助类，聊天界面的前台和后台交互用，用来方便controller层返回消息到view层
+ * 前台辅助类，聊天界面的前台和后台交互用使用的类，用来方便controller层返回消息到view层
  * @author wuqi-pc
  *
  */

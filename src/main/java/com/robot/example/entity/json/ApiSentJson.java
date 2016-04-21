@@ -7,7 +7,7 @@ import java.util.List;
  * @author wuqi-pc
  *
  */
-public class ApiJson
+public class ApiSentJson
 {
     //The natural language text to be processed.The request can have multiple query parameters.
     private List<String> query;//Required unless sound file/stream is submitted.
