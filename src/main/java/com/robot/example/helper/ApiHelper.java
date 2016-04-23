@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.robot.example.entity.json.ApiSentJson;
+import com.robot.example.entity.utility.UriUnility;
 
 /**
  * 前台类，在该类中主要进行了与api.ai网站进行交互的封装
@@ -17,8 +18,6 @@ import com.robot.example.entity.json.ApiSentJson;
  *
  */
 public class ApiHelper {
-	//接口地址
-    private final String API_URL = "https://api.api.ai/v1/query";
     //api.ai网站的agent的token值
     private final String API_TOKEN_CLIENT = "5c0a39075f6a456cada50c335eeca729";
     //下面这两个属性与该类无关，只是存储在这里方便没有查到消息之后，调用图灵机器人
@@ -42,7 +41,7 @@ public class ApiHelper {
     	this.userid=userid;
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         list.add(new BasicNameValuePair("Authorization", "Bearer " + API_TOKEN_CLIENT));
-        String message = HttpHelper.SendPost(API_URL, postbody, list);
+        String message = HttpHelper.SendPost(UriUnility.API_URI, postbody, list);
         return message;
     }
 

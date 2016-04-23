@@ -14,6 +14,11 @@ import com.robot.example.entity.Medicine;
 import com.robot.example.entity.json.RobotBackJson;
 import com.robot.example.entity.utility.TypeUtility;
 
+/**
+ * 药品查询的业务逻辑层
+ * @author wuqi-pc
+ *
+ */
 public class MedicineService {
 
 	private String NEWS_SOURCE="小智药店";

@@ -3,17 +3,15 @@ package com.robot.example.helper;
 import com.google.gson.Gson;
 import com.robot.example.entity.json.RobotBackJson;
 import com.robot.example.entity.utility.TypeUtility;
+import com.robot.example.entity.utility.UriUnility;
 
 /**
- * 前台类，封装了与ApiController中抛出接口的交互
+ *  封装了与ApiController中抛出接口（即自己的服务）的交互
  * @author wuqi-pc
  *
  */
 public class RobotHelper
 {
-	//交互的基地址
-    private String ROBOT_URL = "http://apiaiservice.duapp.com/api/webhook";
-	//private String ROBOT_URL = "http://localhost:8080/Apiai/api/webhook";
     /**
      * 返回post请求的结果
      * @param postBody json字符串，参数一般为从api.ai返回的json，不需要做任何的改变
@@ -22,7 +20,7 @@ public class RobotHelper
     public String getRobotPost(String postBody)
     {
     	//得到请求返回的json串
-        String getback=HttpHelper.SendPost(ROBOT_URL,postBody,null);
+        String getback=HttpHelper.SendPost(UriUnility.ROBOT_URI,postBody,null);
         System.out.println("robotback:"+getback);
         //得到json串中的status为success或是false，做出相应的判断
         Gson gson=new Gson();

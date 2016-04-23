@@ -21,9 +21,11 @@ import com.google.gson.Gson;
 import com.robot.example.entity.json.ApiSentJson;
 import com.robot.example.entity.model.ChatViewModel;
 import com.robot.example.helper.ApiHelper;
+import com.robot.example.helper.RecordHelper;
 
 @Controller
 public class RobotController {
+	
 	
 	//页面控制器
 	@RequestMapping(value="/{page}")
@@ -52,14 +54,17 @@ public class RobotController {
      {
 		 String content = "";
 		 try {  
-			 //设置request中的内容的编码为utf-8,防止乱码
+			   //设置request中的内容的编码为utf-8,防止乱码
 		       request.setCharacterEncoding("UTF-8");  
 		       //获取传递过来的参数
 		       String body = request.getParameter("sendinput");  
 		       //如果参数不为空
 		       if(body!=null||body.trim()!=""){
 		        	 body=body.trim();
-		        	//构造要提交的请求的参数
+		        	 //先将查询记录存放到数据库，这里忽略了存放数据库放回的状态
+		        	 RecordHelper recordhelper=new RecordHelper(body);
+		             recordhelper.sendRecord();
+		        	//构造 提交的请求的参数
 		             ApiSentJson apijson = new ApiSentJson();
 		             List<String> list=new ArrayList<String>();
 		             list.add(body);

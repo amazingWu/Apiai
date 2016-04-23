@@ -11,20 +11,20 @@ public class ApiSentJson
 {
     //The natural language text to be processed.The request can have multiple query parameters.
     private List<String> query;//Required unless sound file/stream is submitted.
-                              //The confidence of the corresponding query parameter having been correctly recognized by a speech recognition system. 0 represents no confidence and 1 represents the highest confidence. 
+    //The confidence of the corresponding query parameter having been correctly recognized by a speech recognition system. 0 represents no confidence and 1 represents the highest confidence. 
     private List<Integer> confidence;//Required when multiple query parameters are used.
-                                //Array of additional input context objects.
+    //Array of additional input context objects.
     private List<Context> contexts;//Optional.
-                                  //If true, all current contexts in a session will be reset before the new ones are set.False by default.
+    //If true, all current contexts in a session will be reset before the new ones are set.False by default.
     private boolean resetContexts;//Optional
     private Location location;
     //Time zone from IANA Time Zone Database.
     private String timezone;//Optional
-                           //Language tag, e.g.EN, ES, ... 
+    //Language tag, e.g.EN, ES, ... 
     private String lang;//Required.
-                       //A string token up to 36 symbols long, used to identify the client and to manage sessions parameters (including contexts) per client.
+    //A string token up to 36 symbols long, used to identify the client and to manage sessions parameters (including contexts) per client.
     private String sessionid; //Required.
-                             //Version of the protocol, e.g.v=20150910
+    //Version of the protocol, e.g.v=20150910
     private String v; //Must be used as a URL parameter.
     
     public List<String> getQuery() {

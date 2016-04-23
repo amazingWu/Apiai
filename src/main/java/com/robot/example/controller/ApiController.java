@@ -1,6 +1,10 @@
 package com.robot.example.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.robot.example.entity.Record;
 import com.robot.example.service.MedicineService;
+import com.robot.example.service.RecordService;
 import com.robot.example.service.WeatherService;
 
 @Controller
@@ -19,19 +25,22 @@ import com.robot.example.service.WeatherService;
 public class ApiController {
 	private WeatherService weatherService=new WeatherService();
 	private MedicineService medicineService;
+
+	
+	//属性注入
 	@Resource(name="medicineService")
 	public void setMedicineService(MedicineService medicineService) {
 		this.medicineService = medicineService;
 	}
-	//produces="application/json; charset=utf-8"用来控制输出的编码格式为utf-8
-	@RequestMapping(value = "/weather/{city}")
-	public @ResponseBody String weather(@PathVariable String city){
-		String result=weatherService.getWeather(city);
-		return result;
-	}
 	
 	
-	//api.ai网站请求的入口
+
+	/**
+	 * 药品查询请求的入口
+	 * @param body json字符串
+	 * @return
+	 */
+	//value表示spring框架设置的接口访问地址，consumes表示接收的字符串为json，produces表示返回的字符串采用utf-8编码且为json格式
 	@RequestMapping(value="/webhook",
 			method = RequestMethod.POST,consumes="application/json",produces = {"application/json;charset=UTF-8"})
 	public @ResponseBody String webhook(@RequestBody String body){
@@ -61,6 +70,8 @@ public class ApiController {
 		return "";
 	}
 	
+	
+	
 	/**
 	 * 处理天气
 	 * @param result
@@ -71,5 +82,7 @@ public class ApiController {
 		String geoCity=params.get("geo-city").getAsString();
 		return weatherService.getWeather(geoCity);
 	}
+	
+	
 
 }

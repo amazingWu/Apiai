@@ -9,7 +9,7 @@
 -- 表的结构 `medicine`
 --
 
-CREATE TABLE IF NOT EXISTS `medicine` (
+CREATE TABLE IF NOT EXISTS `apidatabase`.`Medicine` (
   `productId` int(10) NOT NULL AUTO_INCREMENT,
   `productName` varchar(45) NOT NULL,
   `productPrice` double DEFAULT NULL,
@@ -21,4 +21,11 @@ CREATE TABLE IF NOT EXISTS `medicine` (
   `productSideEffect` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`productId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE `apidatabase`.`Record` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` VARCHAR(60) NOT NULL,
+  `postTime` DATE NOT NULL,
+  `source` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
 

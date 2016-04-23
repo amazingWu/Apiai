@@ -1,6 +1,7 @@
 package com.robot.example.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,7 @@ public class Medicine{
 	private String productSideEffect;//副作用
 	//id表示在数据库中是主键
 	@Id
+	@GeneratedValue
 	@JsonProperty
 	public long getProductId() {
 		return productId;

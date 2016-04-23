@@ -12,12 +12,15 @@ import com.robot.example.entity.json.TulingBackJson.FoodMessage;
 import com.robot.example.entity.json.TulingBackJson.LinkMessage;
 import com.robot.example.entity.json.TulingBackJson.NewsMessage;
 import com.robot.example.entity.json.TulingBackJson.TextMessage;
+import com.robot.example.entity.utility.UriUnility;
 
-
+/**
+ * 封装了与图灵机器人的交互
+ * @author wuqi-pc
+ *
+ */
 public class TulingHelper
 {
-    //图铃机器人api地址
-    private final String TUPING_URL = "http://www.tuling123.com/openapi/api";
     //产品ak
     private final String AK = "a05e266389bc8d5f03f8e055da1ea825";
     private String postbody;
@@ -37,7 +40,7 @@ public class TulingHelper
        /* List<NameValuePair> parms=new ArrayList<NameValuePair>();
         parms.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));*/
         //模拟请求建立
-        return HttpHelper.SendGet(TUPING_URL, postbody);
+        return HttpHelper.SendGet(UriUnility.TULING_URI, postbody);
     }
 
     /// <summary>

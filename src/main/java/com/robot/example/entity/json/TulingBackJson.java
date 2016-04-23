@@ -1,5 +1,8 @@
 package com.robot.example.entity.json;
 
+//以下的类均为图灵返回的json消息的pojo类，方便json序列化，
+//从而得到相关的值，进行属性操作
+
 /**
  * 图灵回复消息的父类
  * @author wuqi-pc

@@ -78,6 +78,11 @@
 	<bean id="medicineDao" class="com.robot.example.dao.MedicineDao">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
+	<bean id="recordDao" class="com.robot.example.dao.RecordDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+	
 	<!-- Service中使用了注解，所以不需要指定都有哪些属性，会自动扫描 -->
 	<bean id="medicineService" class="com.robot.example.service.MedicineService"/>
+	<bean id="recordService" class="com.robot.example.service.RecordService"/>
 </beans>

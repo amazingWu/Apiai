@@ -12,13 +12,22 @@ import com.robot.example.entity.json.WeatherMessage.Weather_data;
 import com.robot.example.entity.utility.TypeUtility;
 import com.robot.example.helper.HttpHelper;
 
+/**
+ * 天气查询的业务逻辑层
+ * @author wuqi-pc
+ *
+ */
 @Component
 public class WeatherService {
 	//基地�?
 	private String weather_url="http://api.map.baidu.com/telematics/v3/weather";
-	//参数
+	//参数，ak值为百度开发者创建的应用中的ak值
 	private String param="output=json&ak=6tYzTvGZSOpYB5Oc2YGGOKt8&location=";
-	
+	/**
+	 * 获取天气
+	 * @param location
+	 * @return
+	 */
 	public String getWeather(String location){
 		String content="";
 		//将要放回的json文本对应的pojo类

@@ -1,8 +1,8 @@
 package com.robot.example.entity.json;
 
 /**
- * �ٶ��������񷵻ص�json��Ӧ����
- * @author wq
+ * 百度天气查询返回的json串对应的pojo类，用来序列化json成对象
+ * @author wuqi-pc
  *
  */
 public class WeatherMessage {

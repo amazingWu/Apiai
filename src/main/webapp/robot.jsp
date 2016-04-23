@@ -14,12 +14,14 @@
     		    myfunction();
     		  }
     	}
+    	//发送事件
         function myfunction(){
                 var message = document.getElementById("sentinput").value;
                 ajaxRequest(message);
                 //重置输入框
                 document.getElementById("sentinput").value="";
         };
+        
     	//javascript ajax
         var xmlHttpRequest = null;
         //js中的变量名应避免使用和html元素相同
@@ -42,6 +44,7 @@
                  * POST方式向服务器发出一个请求
                  */
                 xmlHttpRequest.open("POST", "RobotAjaxBack", true);
+                 
                 // 当发生状态变化时就调用这个回调函数
                 xmlHttpRequest.onreadystatechange = ajaxCallBack;
                 // 使用post提交时必须加上下面这行代码
@@ -72,12 +75,12 @@
                 //按照返回的状态码进行判断并作出相应的操作
                 if (xmlHttpRequest.status == 200) {//200表成功
                     var content = xmlHttpRequest.responseText;
-                    //创建文本，并添加进li结点中去
+                    //文本添加进li结点中去
                     li.innerHTML = content;
                 }
                 else {
                     var content = xmlHttpRequest.responseText;
-                    //创建文本，并添加进li结点中去
+                    //文本添加进li结点中去
                     var text = document.createTextNode("与服务器连接出错了！");
                     li.appendChild(text);
                 }
@@ -117,7 +120,7 @@
         //    });
         //}
         
-        //滚屏
+        //滚屏到屏幕最低端
         function scroll_bottom() {
             document.getElementById("msg_end").scrollIntoView();
         }

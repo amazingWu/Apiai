@@ -21,7 +21,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.hibernate.mapping.KeyValue;
 
 /**
- * 前台类，模拟请求
+ * 模拟请求
  * @author wuqi-pc
  *
  */
