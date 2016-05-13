@@ -13,12 +13,15 @@ public class UriUnility {
 	/**
 	 * 自己的服务的地址
 	 */
-	public final static String ROBOT_URI="http://apiaiservice.duapp.com/api/webhook";
+	public final static String ROBOT_URI="http://localhost:8080/Apiai/api/webhook";
+	//public final static String ROBOT_URI="http://apiaiservice.duapp.com/api/webhook";
+	//public final static String ROBOT_URI="http://apirobot.duapp.com/api/webhook";
 	/**
 	 * 查询记录上传的地址
 	 */
-	//public final static String RECORD_URI="http://localhost:8080/Apiai/record/insert";
-	public final static String RECORD_URI="http://apiaiservice.duapp.com/record/insert";
+	public final static String RECORD_URI="http://localhost:8080/Apiai/record/insert";
+	//public final static String RECORD_URI="http://apiaiservice.duapp.com/record/insert";
+	//public final static String RECORD_URI="http://apirobot.duapp.com/record/insert";
 	/**
 	 * 图灵机器人的地址
 	 */

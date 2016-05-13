@@ -19,7 +19,7 @@ import com.robot.example.entity.utility.UriUnility;
  */
 public class ApiHelper {
     //api.ai网站的agent的token值
-    private final String API_TOKEN_CLIENT = "5c0a39075f6a456cada50c335eeca729";
+    private final String API_TOKEN_CLIENT = "69e75845d3934663a1fe05243f21df4c";
     //下面这两个属性与该类无关，只是存储在这里方便没有查到消息之后，调用图灵机器人
     //用来存储用户唯一id
     private String userid;
@@ -41,6 +41,7 @@ public class ApiHelper {
     	this.userid=userid;
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         list.add(new BasicNameValuePair("Authorization", "Bearer " + API_TOKEN_CLIENT));
+        //模拟post请求
         String message = HttpHelper.SendPost(UriUnility.API_URI, postbody, list);
         return message;
     }
@@ -53,32 +54,32 @@ public class ApiHelper {
     public String GetApiPost(String postbody)
     {
     	/*{
-    		  "id": "b5b184ac-4ac3-486d-b984-20c876aefc3b",
-    		  "timestamp": "2016-04-02T05:03:04.795Z",
-    		  "result": {
-    		    "source": "agent",
-    		    "resolvedQuery": "weather in 北京",//被识别出来的你发送的文本
-    		    "action": "yahooWeatherForecast",//被匹配的action
-    		    "actionIncomplete": false,//相应的action是否顺利完成
-    		    "parameters": {
-    		      "geo-city": "北京"//文本中被匹配的变量
-    		    },
-    		    "contexts": [],//上下文
-    		    "metadata": {//匹配的Intent
-    		      "intentId": "28519659-b0d8-40ef-b22f-818e36f9da65",
-    		      "intentName": "Weather"
-    		    },
-    		    "fulfillment": {//speechResponse，api.ai返回的消息
-    		      "speech": "你好"
-    		    },
-    		    "score": 1
-    		  },
-    		  "status": {//执行状态码
-    		    "code": 206,
-    		    "errorType": "partial_content",
-    		    "errorDetails": "Webhook call failed. Status code 500. Error:500 INTERNAL SERVER ERROR"
-    		  }
-    		}*/
+		  "id": "72008269-040e-426f-a440-569d164b694d",
+		  "timestamp": "2016-04-25T09:33:40.884Z",
+		  "result": {
+			  "source": "agent",
+			  "resolvedQuery": "陈奕迅的歌",
+			  "speech": "请问你要查哪首歌曲",
+			  "action": "",
+			  "parameters": {
+			  "singer": "陈奕迅"    
+			  }, 
+			  "metadata": {
+				  "intentId": "03121308-fa56-497c-975f-264bad386ddc",
+				  "webhookUsed": "false",      
+				  "inputContexts": [],      
+				  "outputContexts": [],      
+				  "contexts": [        "@singer"      ],
+				  "intentName": "查歌1"    
+			  },    
+			  "score": 1.0  
+		  },
+		  "status": 
+		  {    
+			  "code": 200,
+			  "errorType": "success"  
+		  }
+		}*/
     	
         //从api获取消息
         String httptext = GetApiHttp(postbody);
@@ -99,7 +100,7 @@ public class ApiHelper {
             		   //调用图灵机器人
             		   TulingHelper tulingHelper=new TulingHelper(content, userid);
             		   String s=tulingHelper.GetMessage();
-            		   System.out.println("tuling:"+s);
+            		   //System.out.println("tuling:"+s);
             		   return s;
                    }
                    else
@@ -117,9 +118,7 @@ public class ApiHelper {
             	 //调用图灵机器人
         		   TulingHelper tulingHelper=new TulingHelper(content, userid);
         		   String s=tulingHelper.GetMessage();
-        		   System.out.println("tuling:"+s);
         		   return s;
-        		   //return "尊敬的用户你好，您的问题暂时无法回答..";
                }
             default:
                 return status.get("errorDetails").getAsString();

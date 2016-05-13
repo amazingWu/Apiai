@@ -10,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 //entity表示与数据库中的表或视图对应，hibernate将会根据类名查找数据库
 @Entity
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, 
-getterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect
 public class Medicine{
 	private long productId;//产品编号
 	private String productName;//产品型号

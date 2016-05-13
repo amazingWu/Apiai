@@ -9,17 +9,29 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 /**
  * 记录消息的数据库中的表的映射类
  * @author wuqi-pc
  *
  */
 @Entity
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, 
+getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Record {
 	private long id;
 	private String content;
 	private Date postTime;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	private String source;
+	
 	//注解建议都表在getter上，如果直接标在属性上，会破坏数据的封装性
 	
 	//Id表示为主键，GeneratedValue表示主键生成策略为数据库自己自增

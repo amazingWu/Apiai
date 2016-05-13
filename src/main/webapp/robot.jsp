@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.robot.example.entity.model.ChatViewModel" %>
+<%String path=request.getContextPath(); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -7,6 +8,43 @@
     <title>智能机器人</title>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/chatstyle.css" type="text/css"> 
     <meta name="viewport" content="width=device-width,initian-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <!-- 使用内部样式覆盖外部样式，如果用户已经登陆就显示用户头像 -->
+     <style type="text/css">
+     	a { text-decoration: none; color: white;padding: 3px;background-color: #969595;} 
+		a:hover { background-color: white;} 
+    	.chat-thread li[role="me"]:before {
+			right: -60px;
+			/* 用户头像 */
+			<%try{
+				String url=path+"/"+request.getAttribute("icon").toString();%>	
+				background: url(<%=url%>);
+				-moz-background-size:50px 50px; /* 老版本的 Firefox */
+				background-size:50px 50px;
+				background-repeat:no-repeat;
+			<%}catch(NullPointerException e){
+			}%>
+		}
+		.top{
+			height: 2.5em;
+			background-color:gray;
+		}
+		.title{padding-top: 0.7em;    font-weight: bold;}
+		
+		<%try{
+			String name=request.getSession().getAttribute("userName").toString();
+			if(name!=null){%>
+				.login{display:none;}
+				.record{float: right;margin-top: -2.2em;}
+				.out{float: left;margin-top: -2.2em;}
+			<%}else{%>
+				.record,.out{display:none;}
+				.login{float: right;margin-top: -2.2em;}
+			<%}
+		}catch(Exception ee){%>
+			.record,.out{display:none;}
+			.login{float: right;margin-top: -2.2em;}
+		<%}%>
+    </style>
     <script type="text/javascript">
     	function keydown(){
     		if (event.keyCode == 13)
@@ -51,7 +89,7 @@
                 xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
                 // 向服务器发出一个请求
                 xmlHttpRequest.send("sendinput="+sendtext);
-                //将输入框中的添加进网页中,ajax请求完成后将输入框内容清空
+                //将用户在输入框中输入的内容的添加进网页中,ajax请求完成后将输入框内容清空
                 var li = document.createElement("li");
                 li.setAttribute("role", "me");
                 var text = document.createTextNode(sendtext);
@@ -68,11 +106,13 @@
         function ajaxCallBack() {
             
         	//alert("fanhui :");
+        	//4：ajax方法的成功执行
             if (xmlHttpRequest.readyState == 4) {
                 //创建li节点
                 var li = document.createElement("li");
                 li.setAttribute("role", "you");
                 //按照返回的状态码进行判断并作出相应的操作
+                //200表示服务成功接收消息，并成功返回结果（见：w3cSchool）
                 if (xmlHttpRequest.status == 200) {//200表成功
                     var content = xmlHttpRequest.responseText;
                     //文本添加进li结点中去
@@ -127,6 +167,12 @@
     </script>
 </head>
 <body>
+	<center class="top">
+		<p class="title">智能机器人</p>
+		<a class="record" href="<%=path%>/robot/record/0/20">聊天记录</a>
+		<a class="login" href="<%=path%>/user/login">登录</a>
+		<a class="out" href="<%=path%>/user/out">退出</a>
+	</center>
     <div id="convo">
         <ul id="chat_ul" class="chat-thread">
           <li role="${requestScope.model.getRole()}">${requestScope.model.getContent()}</li>
@@ -134,7 +180,7 @@
     </div>
     <div class="msg_end" id="msg_end"></div>
     <div id="sent_div">
-         <input type="text" id="sentinput" name="sentinput" class="sent_input" onkeydown="keydown()"/>
+         <input type="text" id="sentinput" name="sentinput" class="sent_input"  onkeydown="keydown()" x-webkit-speech="x-webkit-speech"/>
          <input type="submit" id="sent_btn" class="sent_btn" value="发送" onclick="myfunction()"/>
     </div>
     </body>

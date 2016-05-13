@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
@@ -11,15 +12,31 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 	
-	<!-- controller中输出的编码为UTF-8 -->
-	<!-- <mvc:annotation-driven>
-	  <mvc:message-converters register-defaults="true">
-	    <bean class="com.robot.example.helper.UTF8StringHttpMessageConverter">
-	    </bean>
-	  </mvc:message-converters>
-	</mvc:annotation-driven> -->
-	 
-	<mvc:annotation-driven/>
+	<!-- 开启注解 -->
+	<mvc:annotation-driven validator="validator"/>
 	<context:component-scan base-package="com.robot.example.controller" />
-
+	<!-- mvc的拦截器 -->
+	<mvc:interceptors>  
+	    <!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 --> 
+	    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />  
+	    <!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
+	    <mvc:interceptor>
+            <mvc:mapping path="/robot/*"/>
+            <bean class="com.robot.example.auth.AuthInterceptor"></bean>
+	    </mvc:interceptor>
+	    <mvc:interceptor>
+            <mvc:mapping path="/robot/*/*/*"/>
+            <bean class="com.robot.example.auth.AuthInterceptor"></bean>
+	    </mvc:interceptor>
+	    <mvc:interceptor>
+            <mvc:mapping path="/user/*"/>
+            <bean class="com.robot.example.auth.AuthInterceptor"></bean>
+	    </mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	 <!-- 验证配置，告知srpingmvc，我使用的是Hibernate验证框架来完成的验证 -->
+     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+         <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+     </bean>
 </beans>

@@ -10,24 +10,31 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 	<!-- 添加annotation功能 -->
 	<context:annotation-config />
-	<!-- 自动扫描包 -->
+	 <!-- 把标记了@Controller注解的类转换为bean -->  
 	<context:component-scan base-package="com.robot.example" />
 	<!-- 配置数据库连接信息 -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/apidatabase"/>
 		<property name="username" value="wuqi" />
 		<property name="password" value="123456" />
-	</bean> -->
+	</bean>
 	
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://sqld.duapp.com:4050/OnKfamyxjVZcHepKpmqV"/>
 		<property name="username" value="ea694b3860ee41cdb599f742c0291fbf" />
 		<property name="password" value="7aa32f406a6f444a896622d990d193fd" />
-	</bean>
+	</bean> -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://sqld.duapp.com:4050/UMMoylFvfZYvWWwVbklj"/>
+		<property name="username" value="a3261efdf979441884a60c0731194f4c" />
+		<property name="password" value="575fc172bc0b400282bef2d8d6932e66" />
+	</bean> -->
 	<!-- sessionFactory配置 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -81,8 +88,11 @@
 	<bean id="recordDao" class="com.robot.example.dao.RecordDao">
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
-	
+	<bean id="userDao" class="com.robot.example.dao.UserDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
 	<!-- Service中使用了注解，所以不需要指定都有哪些属性，会自动扫描 -->
 	<bean id="medicineService" class="com.robot.example.service.MedicineService"/>
 	<bean id="recordService" class="com.robot.example.service.RecordService"/>
+	<bean id="userService" class="com.robot.example.service.UserService"  scope="prototype"/>
 </beans>

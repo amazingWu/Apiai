@@ -36,7 +36,6 @@ public class HttpHelper {
 	public static String SendGet(String url,String param){
 		
 		String urlstring=url+"?"+param;
-		System.out.println(urlstring);
 		String result="";
 		// 创建HttpClient实例     
         HttpClient httpclient = new DefaultHttpClient();
