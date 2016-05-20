@@ -17,16 +17,16 @@
 <link rel="stylesheet" href="<%=path %>/user/loginregister.css" type="text/css"> 
 <script type="text/javascript">
 	function nologin() {
-		window.location.href="<%=path %>/robot/robot";
+		window.location.href="<%=path %>/robot/chat";
 	}
 	function register() {
-		window.location.href="<%=path %>/user/register/1";
+		window.location.href="<%=path %>/user/register/2";
 	}
 </script>
 </head>
 <body>
 	<center>
-		<form:form action="user/login/1" method="post">
+		<form:form action="user/login/2" method="post">
 			<div class="fram">
 				<br/>
 				<img class="headimg"  alt="头像" src="<%=path %>/images/head.jpg"></img>

@@ -28,8 +28,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-
+    
+    
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		System.out.println("inter");
@@ -72,9 +72,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                     return true;
                 else//如果验证失败
                 {
-                    //返回到登录界面  	
+                    //返回到登录界面  
                 	if(authPassport.redirect()==true){
                 		response.sendRedirect(request.getContextPath()+"/user/login.jsp");
+                		//response.sendError(HttpServletResponse., "用户还没有登录");
                 	}
                 	else{
                 		return true;

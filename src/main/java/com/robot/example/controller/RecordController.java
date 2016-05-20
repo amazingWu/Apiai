@@ -53,7 +53,7 @@ public class RecordController {
 				
 			}
 			//设置日期的格式
-			SimpleDateFormat sdf=new  SimpleDateFormat( "yyyy-MM-dd hh:mm" );
+			SimpleDateFormat sdf=new  SimpleDateFormat( "yyyy-MM-dd HH:mm" );
 			Date postTime=new Date();
 			//获取当前时间
 			postTime=sdf.parse(sdf.format(postTime.getTime()));

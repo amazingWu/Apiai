@@ -50,8 +50,8 @@ public class UserController {
 	 * @param userName
 	 * @param userPwd
 	 */
-	@RequestMapping(value="login",method=RequestMethod.POST)
-	public String GetUser(HttpServletRequest request){
+	@RequestMapping(value="login/{type}",method=RequestMethod.POST)
+	public String GetUser(HttpServletRequest request,@PathVariable int type){
 		try{
 			String userName=request.getParameter("userName");
 			String userPwd=request.getParameter("userPwd");
@@ -64,16 +64,25 @@ public class UserController {
 					session.setAttribute("userPwd", userPwd);
 					//设置登录后的用户的session有效期为3天，如果1天没有操作就需要重新登录
 					session.setMaxInactiveInterval(3600*24);
-					return "redirect:/robot/robot";
+					if(type==1){//如果是普通浏览器
+						return "redirect:/robot/robot";
+					}else{//如果是放入app中，不带有输入框
+						return "redirect:/robot/chat";
+					}
 				}
 			}
 		}catch(NullPointerException e){
 		}
 		return "/user/login.jsp";
 	}
-	@RequestMapping(value="login",method=RequestMethod.GET)
-	public String Login(){
-		return "/user/login.jsp";
+	@RequestMapping(value="login/{type}",method=RequestMethod.GET)
+	public String Login(@PathVariable int type){
+		if(type==1){//如果是普通浏览器
+			return "redirect:/user/login.jsp";
+		}else{//如果是放入app中，不带有输入框
+			return "redirect:/user/chatlogin.jsp";
+		}
+		
 	}
 	
 	
@@ -82,24 +91,43 @@ public class UserController {
 	 * 用户注册
 	 * @return
 	 */
-	@RequestMapping(value = "register", method = {RequestMethod.GET})  
-    public String register(){
-        return "/user/register.jsp";
+	@RequestMapping(value = "register/{type}", method = {RequestMethod.GET})  
+    public String register(@PathVariable int type){
+        if(type==1){
+        	return "/user/register.jsp";
+        }else{
+        	return "/user/chatregister.jsp";
+        }
     }
-	@RequestMapping(value = "register",method=RequestMethod.POST)
+	@RequestMapping(value = "register/{type}",method=RequestMethod.POST)
 	 public String registerCheck(Model model, @ModelAttribute("robotUser") @Valid RobotUser robotUser,  
-	            BindingResult result) {
-	    if (result.hasErrors())
-	        return "/user/register.jsp";
-	    else{
-	    	//保存用户数据
-	    	if(this.userService.Save(robotUser)){
-	    		model.addAttribute("userName", robotUser.getUserName());
-	 	        return "forward:/user/success.jsp";
-	    	}else{
-	    		return "redirect:/user/register.jsp";
-	    	}
-	       
+	            BindingResult result,@PathVariable int type) {
+	    if(type==1){
+	    	if (result.hasErrors())
+		        return "/user/register.jsp";
+		    else{
+		    	//保存用户数据
+		    	if(this.userService.Save(robotUser)){
+		    		model.addAttribute("userName", robotUser.getUserName());
+		 	        return "redirect:/user/login.jsp";
+		    	}else{
+		    		return "redirect:/user/register.jsp";
+		    	}
+		       
+		    }
+	    }else{
+	    	if (result.hasErrors())
+		        return "/user/chatregister.jsp";
+		    else{
+		    	//保存用户数据
+		    	if(this.userService.Save(robotUser)){
+		    		model.addAttribute("userName", robotUser.getUserName());
+		 	        return "redirect:/user/chatlogin.jsp";
+		    	}else{
+		    		return "redirect:/user/chatregister.jsp";
+		    	}
+		       
+		    }
 	    }
 	 }
 	/**
@@ -107,12 +135,16 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="out")
+	@RequestMapping(value="out/{type}")
 	@AuthPassport
-	public String Logout(HttpServletRequest request){
+	public String Logout(HttpServletRequest request,@PathVariable int type){
 		request.getSession().setAttribute("userName", null);
 		request.getSession().setAttribute("userPwd", null);
 		request.getSession().setMaxInactiveInterval(0);
-		return "forward:/user/login";
+		if(type==1){
+			return "redirect:/user/login.jsp";
+		}else{
+			return "redirect:/user/chatlogin.jsp";
+		}
 	}
 }

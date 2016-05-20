@@ -1,0 +1,80 @@
+.input{
+		height: 1.5em;
+		border-width: 0px;
+		margin: 2px;
+		margin-left: 0;
+	}
+	.h1{
+		font-size: 2em;
+	}
+	body {
+		background-image: url(../images/background.jpg);
+		background-repeat:no-repeat;
+		background-position: center top;
+	}
+	.fram{
+		margin-top:20%;
+		-moz-border-radius: 30px;
+		-webkit-border-radius: 30px;
+		border-radius: 30px;
+		width:65%;
+		max-width:400px;
+		padding-left:30px;
+		padding-right:30px;
+		padding-bottom:30px;
+		background-color: rgba(19, 19, 17,0.5)
+	}
+	.content{
+		
+		
+	}
+	.tr{
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		border-color: white;
+		border-width: 1px;
+		border-style: solid;
+		display: block;
+		margin-bottom: 1em;
+	}
+	.loginbtn{
+		width:50%;
+		margin-bottom:1em;
+		max-width:120px;
+		font-size:1.2em;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		border-width: 0px;
+		background-image: url(../images/button.png);
+		background-position: center;
+	}
+	.registerbtn{
+		width:50%;
+		margin-bottom:1em;
+		max-width:120px;
+		font-size:1.2em;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		border-width: 0px;
+		background-image: url(../images/register.png);
+		background-position: center;
+	}
+	.otherbtn{
+		background-color: rgba(255, 255, 255,0);
+		border-width: 0px;
+	}
+	.headimg{
+		width:50px;
+		height:50px;
+		-moz-border-radius: 25px;
+		-webkit-border-radius: 25px;
+		border-radius: 25px;
+		margin: 0;
+	}
+	.icon{
+		width: 20px;
+		height: 20px;
+	}

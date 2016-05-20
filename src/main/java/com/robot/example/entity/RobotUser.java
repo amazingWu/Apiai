@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class RobotUser {
 
 	private long id;
-	
 	@NotEmpty(message="用户名不能为空")
 	@Length(max=20,message="用户名长度过长")
 	private String userName;//用户名

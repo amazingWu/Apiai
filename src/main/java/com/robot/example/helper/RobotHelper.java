@@ -12,6 +12,11 @@ import com.robot.example.entity.utility.UriUnility;
  */
 public class RobotHelper
 {
+	private String ip;
+	public RobotHelper(String ip) {
+		// TODO Auto-generated constructor stub
+		this.ip=ip;
+	}
     /**
      * 返回post请求的结果
      * @param postBody json字符串，参数一般为从api.ai返回的json，不需要做任何的改变
@@ -20,7 +25,7 @@ public class RobotHelper
     public String getRobotPost(String postBody)
     {
     	//得到请求返回的json串
-        String getback=HttpHelper.SendPost(UriUnility.ROBOT_URI,postBody,null);
+        String getback=HttpHelper.SendPost(ip+UriUnility.ROBOT_URI,postBody,null);
         System.out.println("robotback:"+getback);
         //得到json串中的status为success或是false，做出相应的判断
         Gson gson=new Gson();

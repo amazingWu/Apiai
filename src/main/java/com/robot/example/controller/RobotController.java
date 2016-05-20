@@ -53,15 +53,19 @@ public class RobotController {
       modelAndView.setViewName("/"+page+".jsp");
 	  return modelAndView;
 	}
-	@RequestMapping(value="/record/{start}/{offset}")
+	@RequestMapping(value="/record/{start}/{offset}/{type}")
 	@AuthPassport
-	public String Record(HttpServletRequest request,@PathVariable int start,@PathVariable int offset){
+	public String Record(HttpServletRequest request,@PathVariable int start,@PathVariable int offset,@PathVariable int type){
 		
 		List<Record> list=recordService.list(request.getSession().getAttribute("userName").toString(), start, offset);
 		request.setAttribute("records", list);
 		request.setAttribute("start", start);
 		request.setAttribute("offset", offset);
-		return "/user/record.jsp";
+		if(type==1){
+			return "/user/record.jsp";
+		}else{
+			return "/user/chatrecord.jsp";
+		}
 	}
 	/**
 	 * robot聊天界面ajax请求入口
@@ -85,7 +89,8 @@ public class RobotController {
 		        	 }catch(NullPointerException e){
 		        		 
 		        	 }
-		        	 RecordHelper recordhelper=new RecordHelper(body,userName);
+		        	 RecordHelper recordhelper=new RecordHelper(request.getScheme() + "://"
+		        				+ request.getServerName() + ":" + request.getServerPort()+request.getContextPath(),body,userName);
 		             recordhelper.sendRecord();
 		        	//构造 提交的请求的参数
 		             ApiSentJson apijson = new ApiSentJson();
@@ -106,7 +111,8 @@ public class RobotController {
 		             //将对象反序列化，并获取post请求
 		             Gson gson=new Gson();
 		            // System.out.println(gson.toJson(apijson)+"\n");
-		             ApiHelper apihelper = new ApiHelper(body,sessionid);
+		             ApiHelper apihelper = new ApiHelper(request.getScheme() + "://"
+		        				+ request.getServerName() + ":" + request.getServerPort()+request.getContextPath(),body,sessionid);
 		             content = apihelper.GetApiPost( gson.toJson(apijson));
 		         }
 		 }catch (Exception e) {  

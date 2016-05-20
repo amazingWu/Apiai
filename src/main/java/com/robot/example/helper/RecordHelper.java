@@ -13,19 +13,22 @@ public class RecordHelper {
 	private String content;
 	private String source;
 	private String userName;
+	private String ip;
 	
-	public RecordHelper(String content,String userName){
+	public RecordHelper(String ip,String content,String userName){
 		//设置信息查询的来源地为robot应用
 		this.source="robot";
 		this.content=content;
 		this.userName=userName;
+		this.ip=ip;
 	}
 	//包装post内容的json格式
 	private String MakePost(){
 		return "{\""+"content\":\""+content+"\",\"source\":\""+source+"\",\"userName\":\""+userName+"\"}";
 	}
 	public void sendRecord(){
-		HttpHelper.SendPost(UriUnility.RECORD_URI, MakePost(), null);
+		System.out.println(ip+UriUnility.RECORD_URI);
+		HttpHelper.SendPost(ip+UriUnility.RECORD_URI, MakePost(), null);
 	}
 
 }

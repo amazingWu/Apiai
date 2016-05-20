@@ -46,6 +46,11 @@
 		<%}%>
     </style>
     <script type="text/javascript">
+    	
+    	function sendhide(){
+    		var send_div=document.getElementById("sent_div");
+    		send_div.setAttribute("style", "display:none;")
+    	}
     	function keydown(){
     		if (event.keyCode == 13)
     		  {
@@ -169,9 +174,9 @@
 <body>
 	<center class="top">
 		<p class="title">智能机器人</p>
-		<a class="record" href="<%=path%>/robot/record/0/20">聊天记录</a>
-		<a class="login" href="<%=path%>/user/login">登录</a>
-		<a class="out" href="<%=path%>/user/out">退出</a>
+		<a class="record" href="<%=path%>/robot/record/0/20/1">聊天记录</a>
+		<a class="login" href="<%=path%>/user/login.jsp">登录</a>
+		<a class="out" href="<%=path%>/user/out/1">退出</a>
 	</center>
     <div id="convo">
         <ul id="chat_ul" class="chat-thread">

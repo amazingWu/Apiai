@@ -14,53 +14,44 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-<style type="text/css">
-	.input{
-		width: 14em;
-		height: 1.5em;
-		
-	}
-	.h1{
-		font-size: 2em;
-		padding-top: 2em;
-	}
-	body {
-		background-color:gray;
-	}
-}
-</style>
+<link rel="stylesheet" href="<%=path %>/user/loginregister.css" type="text/css">
 <script type="text/javascript">
 	function login() {
-		window.location.href="<%=path%>/user/login"
+		window.location.href="<%=path%>/user/login.jsp"
 	}
 </script>
 </head>
 <body>
 	<center>
-		<h1 class="h1">注册</h1>
-		<form:form action="user/register" method="post" modelAttribute="robotUser">
-			<div style="height: 20em;background-color: #FADAFF">
-			<div style="height: 5em;"></div>
-				<tr>
-				<td><label>用户名：</label></td>
-				<td><input class="input" type="text" name="userName"/></td><br/>
-				<td><form:errors path="userName"/></td><br/>
-			</tr><br/> 
-			<tr>
-				<td><label>密&nbsp;码:&nbsp;</label></td>
-				<td><input class="input" type="text" name="userPwd"/></td><br/>
-				<td><form:errors path="userPwd"/></td><br/>
-			</tr><br/> 
-			<tr>
-				<td>邮&nbsp;箱:&nbsp;</td>
-				<td><input class="input" type="text" name="userEmail"/></td><br/>
-				<td><form:errors path="userEmail"/></td><br/>
-			</tr><br/>
-			<tr>
-				<td colspan="3"><input type="submit" value="提交"></td>
-				<td colspan="3"><input type="reset" value="重置"></td>
-				<td colspan="3"><input type="button" onclick="login()" value="已有账号"></td>
-			</tr>
+		
+		<form:form action="user/register/1" method="post" modelAttribute="robotUser">
+			<div class="fram">
+				<%-- <br/>
+				<img class="headimg"  alt="头像" src="<%=path %>/images/head.jpg"></img>
+				<br/> --%>
+				<table class="content">	
+					<br/>
+					<br/>
+					<tr class="tr">
+						<td><img class="icon" src="images/name.png"></td>
+						<td><input class="input" type="text" placeholder="请输入用户名"  name="userName"/></td>
+						<td><form:errors path="userName"/></td>
+					<tr>
+					<tr class="tr">
+						<td><img class="icon" src="images/pwd.png"></td>
+						<td><input class="input" type="text" placeholder="请输入密码" name="userPwd"/></td>
+						<td><form:errors path="userPwd"/></td>
+					</tr>
+					<tr class="tr">
+						<td><img class="icon" src="images/email.png"></td>
+						<td><input class="input" type="text" placeholder="请输入邮箱"  name="userEmail"/></td>
+						<td><form:errors path="userEmail"/></td>
+					</tr>
+				</table>
+				<input type="submit" class="registerbtn" value=""/>
+				<br/>
+				<input type="reset" class="otherbtn"  value="重置"/>
+				<input type="button" class="otherbtn"  onclick="login()" value="已有账号"/>
 			</div>
 		</form:form>
 	</center>

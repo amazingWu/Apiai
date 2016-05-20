@@ -25,11 +25,13 @@ public class ApiHelper {
     private String userid;
     //用户发送的原内容
     private String content;
+    private String ip;
 
-    public ApiHelper(String content,String userid){
+    public ApiHelper(String ip,String content,String userid){
     	//存储用户唯一id，方便在该类中调用TulingHelper
     	this.userid=userid;
     	this.content=content;
+    	this.ip=ip;
     }
     /**
      * 返回post请求结果
@@ -106,7 +108,7 @@ public class ApiHelper {
                    else
                    {
                        //如果从API.AI返回的消息中有action的值，那么就把从api.ai获取的消息原封不动发送到自己开发的服务器上去查询
-                       RobotHelper robotHelper = new RobotHelper();
+                       RobotHelper robotHelper = new RobotHelper(ip);
                        String robotback=robotHelper.getRobotPost(httptext);
                        if (robotback != "")
                        {

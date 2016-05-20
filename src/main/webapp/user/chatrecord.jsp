@@ -65,16 +65,16 @@
 <script type="text/javascript">
 	function pre(start,offset){
 		if(start>=offset){
-			window.location.href="<%=path%>/robot/record/"+(start-offset)+"/"+offset+"/"+1;
+			window.location.href="<%=path%>/robot/record/"+(start-offset)+"/"+offset+"/"+2;
 		}else{
-			window.location.href="<%=path%>/robot/record/0/"+offset+"/"+1;
+			window.location.href="<%=path%>/robot/record/0/"+offset+"/"+2;
 		}
 	}
 	function next(num,start,offset){
 		if(num<offset){
 			
 		}else{
-			window.location.href="<%=path%>/robot/record/"+(start+offset)+"/"+offset+"/"+1;
+			window.location.href="<%=path%>/robot/record/"+(start+offset)+"/"+offset+"/"+2;
 		}
 	}
 </script>
@@ -83,7 +83,7 @@
 	<center>
 		<center class="top">
 			<p class="title">智能机器人</p>
-			<a class="record" href="<%=path%>/robot/robot">主页</a>
+			<a class="record" href="<%=path%>/robot/chat">主页</a>
 		</center>
 		<div class="middle">
 			<ul>

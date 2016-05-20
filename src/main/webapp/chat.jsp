@@ -46,8 +46,6 @@
 		<%}%>
     </style>
     <script type="text/javascript">
-    	
-        
     	//javascript ajax
         var xmlHttpRequest = null;
         //js中的变量名应避免使用和html元素相同
@@ -127,9 +125,9 @@
 <body>
 	<center class="top">
 		<p class="title">智能机器人</p>
-		<a class="record" href="<%=path%>/robot/record/0/20">聊天记录</a>
-		<a class="login" href="<%=path%>/user/login">登录</a>
-		<a class="out" href="<%=path%>/user/out">退出</a>
+		<a class="record" href="<%=path%>/robot/record/0/20/2">聊天记录</a>
+		<a class="login" href="<%=path%>/user/chatlogin.jsp">登录</a>
+		<a class="out" href="<%=path%>/user/out/2">退出</a>
 	</center>
     <div id="convo">
         <ul id="chat_ul" class="chat-thread">
