@@ -20,13 +20,13 @@
 		window.location.href="<%=path %>/robot/robot";
 	}
 	function register() {
-		window.location.href="<%=path %>/user/register/1";
+		window.location.href="<%=path %>/user/register";
 	}
 </script>
 </head>
 <body>
 	<center>
-		<form:form action="user/login/1" method="post">
+		<form:form action="user/login" method="post">
 			<div class="fram">
 				<br/>
 				<img class="headimg"  alt="头像" src="<%=path %>/images/head.jpg"></img>

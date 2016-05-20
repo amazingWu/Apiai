@@ -46,7 +46,7 @@
 		<%}%>
     </style>
     <script type="text/javascript">
-    	
+    	//隐藏输入框
     	function sendhide(){
     		var send_div=document.getElementById("sent_div");
     		send_div.setAttribute("style", "display:none;")

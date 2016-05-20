@@ -24,7 +24,7 @@
 <body>
 	<center>
 		
-		<form:form action="user/register/1" method="post" modelAttribute="robotUser">
+		<form:form action="user/register" method="post" modelAttribute="robotUser">
 			<div class="fram">
 				<%-- <br/>
 				<img class="headimg"  alt="头像" src="<%=path %>/images/head.jpg"></img>

@@ -53,19 +53,15 @@ public class RobotController {
       modelAndView.setViewName("/"+page+".jsp");
 	  return modelAndView;
 	}
-	@RequestMapping(value="/record/{start}/{offset}/{type}")
+	@RequestMapping(value="/record/{start}/{offset}")
 	@AuthPassport
-	public String Record(HttpServletRequest request,@PathVariable int start,@PathVariable int offset,@PathVariable int type){
+	public String Record(HttpServletRequest request,@PathVariable int start,@PathVariable int offset){
 		
 		List<Record> list=recordService.list(request.getSession().getAttribute("userName").toString(), start, offset);
 		request.setAttribute("records", list);
 		request.setAttribute("start", start);
 		request.setAttribute("offset", offset);
-		if(type==1){
-			return "/user/record.jsp";
-		}else{
-			return "/user/chatrecord.jsp";
-		}
+		return "/user/record.jsp";
 	}
 	/**
 	 * robot聊天界面ajax请求入口
